@@ -126,7 +126,7 @@ function zurlpreview_remove() {
 }
 
 function get_zurlpreview_css() {
-    return '#at_zurlpreview img {
+    return '.at_zurlpreview img {
 				width: 100%;
 				max-width:100%;
  			}';

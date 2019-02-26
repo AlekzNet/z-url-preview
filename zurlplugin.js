@@ -17,11 +17,12 @@
                     }],
                     onsubmit: function( e ) {
                         // Insert content when the window form is submitted
-                        //editor.insertContent( 'Title: ' + e.data.title );
-
+                        //editor.insertContent( 'Title in e: ' + e.data.title + "\n" );
+			//editor.insertContent( 'URL in e: ' + url + "\n");
                         jQuery.ajax({
                             url: url + '/class.zlinkpreview.php',
-                            data: 'url=' + e.data.title + '&image_no=' + 1 + '&css=' + true,
+                            //data: 'url=' + e.data.title + '&image_no=' + 1 + '&css=' + true,
+			    data: "url=" + encodeURIComponent(e.data.title) + '&image_no=' + 1 + '&css=' + true,
                             type: 'get',
                             success: function(html) {
                                 //loader.stop();

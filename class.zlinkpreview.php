@@ -14,11 +14,9 @@ class ZLinkPreview {
     var $htmlblank;
 
     function __construct($url) {
-
         if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
-            $url = "http://" . $url . '/';
+            $url = "https://" . $url . '/';
         }
-
         $this->url = $url;
         $this->getHTML();
     }
@@ -30,15 +28,20 @@ class ZLinkPreview {
     function getHTML() {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->url);
-        curl_setopt($ch, CURLOPT_NOBODY, false);
+
+//        curl_setopt($ch, CURLOPT_NOBODY, false);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+	curl_setopt($ch, CURLOPT_HEADER, false);
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
+	curl_setopt($ch, CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36");
         curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . "/cacert.pem");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $this->html = curl_exec($ch);
 		$this->curlinf = curl_getinfo($ch);
 		$this->curlerr = curl_error($ch);
 		$this->curlerrno = curl_errno($ch);
-
+//	print_r($this->curlinf);
         if (!$this->html) {
             //echo 'Error: ' . curl_error($ch);
             //die();
@@ -196,9 +199,9 @@ class ZLinkPreview {
     }
 
 }
+//print_r($_GET);
 if ((strpos($_GET['url'], "<") === false) && (strpos($_GET['url'], ">") === false)) {
     if (filter_var($_GET['url'], FILTER_VALIDATE_URL)) {
-
         $zlinkPreview = new ZLinkPreview($_GET['url']);
         define('SHORTINIT', true);
         require_once('../../../wp-load.php');
@@ -218,7 +221,7 @@ if ((strpos($_GET['url'], "<") === false) && (strpos($_GET['url'], ">") === fals
         }
         $zlinkPreview->setParseMode(get_option('zurlpreview_parsemode'));
 ?>
-<div id="at_zurlpreview">
+<div class="at_zurlpreview">
             <?php
             if ($zlinkPreview->htmlblank == true) {
             ?>
@@ -275,14 +278,14 @@ if ((strpos($_GET['url'], "<") === false) && (strpos($_GET['url'], ">") === fals
 <?php
     } else {
 ?>
-<div id="at_zurlpreview">
+<div class="at_zurlpreview">
     <p>URL validation failed.</p>
 </div>
 <?php
     }
 } else {
 ?>
-<div id="at_zurlpreview">
+<div class="at_zurlpreview">
     <p>URL validation failed (Possible XSS).</p>
 </div>
 <?php
