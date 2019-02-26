@@ -7,4 +7,5 @@ In this version the following is fixed:
 * URLs with `&` are supported
 * The proper User-Agent is configured (some sites behave differently if the User-Agent is unknown or wrong)
 * Multiple redirections are supported (upto 10)
+* Replaced `id=` with `class=` so multiple embedding per post is supported
 
