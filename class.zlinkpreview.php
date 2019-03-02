@@ -242,9 +242,7 @@ if ((strpos($_GET['url'], "<") === false) && (strpos($_GET['url'], ">") === fals
 					<?php
             	}
             }
-			?>
-			<h3 style="display:none;"><?php $zlinkPreview->getTitle();  ?></h3>
-			<?php
+			
             if (get_option('zurlpreview_noimage') != "Yes") {
 	           	if (get_option('zurlpreview_linkimage') == "Yes") {
 					?>
