@@ -32,7 +32,7 @@ class ZLinkPreview {
         curl_setopt($ch, CURLOPT_NOBODY, false);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($ch, CURLOPT_HEADER, false);
-	curl_setopt($ch, CURLOPT_MAXREDIRS, 3);
+	curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
 	curl_setopt($ch, CURLOPT_USERAGENT,"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.119 Safari/537.36");
         curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . "/cacert.pem");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
