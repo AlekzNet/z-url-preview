@@ -15,7 +15,7 @@ jQuery(function($) {
 
                     jQuery.ajax({
                         url: '/wp-content/plugins/z-url-preview/class.zlinkpreview.php',
-                        data: 'url=' + e.data.title + '&image_no=' + 1 + '&css=' + true,
+                        data: 'url=' + encodeURIComponent(e.data.title) + '&image_no=' + 1 + '&css=' + true,
                         type: 'get',
                         success: function(html) {
                             //loader.stop();
